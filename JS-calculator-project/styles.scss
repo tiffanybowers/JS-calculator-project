@@ -66,6 +66,8 @@ a {
             font-size: 20px;
             margin-bottom: 20px;
             overflow-x: scroll;
+            font-size: 30px;
+            border-bottom: 1px solid #FFDDFB;
         }
         
         #display::-webkit-scrollbar {
@@ -85,9 +87,9 @@ a {
             &:hover {
                 transform: scale(1.1);
             }
-            #equal {
-                height: 130px;
-            }
+        }
+        #equal {
+            height: 120px;
         }
     }
     
@@ -99,6 +101,7 @@ a {
 
         #display {
             color: #0a1e23;
+            border-bottom: 1px solid #CC5500;
         }
         button#clear {
             background-color: #ffd5d8;
@@ -109,8 +112,8 @@ a {
             color:#000;
         }
         button.btn-operator {
-            background-color: #ffd0fd;
-            color: #f967f3;
+            background-color: #FFEFC5;
+            color: #CC5500;
         }
         button.btn-equal {
             background-color: #adf9e7;
@@ -122,6 +125,10 @@ a {
     
     .calculator.dark {
         background-color: #071115;
+        #display {
+            color: #fff;
+            border-bottom: 1px solid #aa00a4;
+        }
         button#clear {
             background-color: #2d191e;
             color: #bd3740;
