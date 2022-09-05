@@ -1,60 +1,39 @@
-const form = document.getElementById('calc_form');
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-});
+const display = document.querySelector('#display');
+const btns = document.querySelectorAll('button');
 
-const output = document.getElementById('output');
-const operand_btns = document.querySelectorAll('button[data-type=operand]');
-let equation = [];
-let is_operator = false;
+btns.forEach((item) => {
+    item.addEventListener('click', () => {
+        if(item.id == 'clear') {
 
-operand_btns.forEach((btn) => {
-    //yopu can access each button here
-    btn.addEventListener('click', (e) => {
+            display.innerText = ''; //resets input field
 
-        e.currentTarget.classList.add('active');
+        } else if (item.id == 'backspace') {
 
-        switch (e.target.value) {
-            case '%':
-                output.value = parseFloat(output.value) / 100;
-                break;
-            case 'invert':
-                output.value = parseFloat(output.value) * -1;
-                break;
-            case '=':
-                equation.push(output.value);
-                console.log(output);
-                // output.value = eval(equation.join(''));
-                // equation = [];
-                break;
-            default:
-                let last_item = equation[equation.length - 1];
-                if(['/', '*', '+', '-'].includes(last_item) && is_operator) {
-                    equation.pop();
-                    equation.push(e.target.value);
-                } else {
-                    equation.push(output.value);
-                    equation.push(e.target.value);
-                }
-                is_operator = true;
-                break;
-        }
+            let string = display.innerText.toString();
+            display.innerText = string.substr(0, string.length - 1); //removes last text item from input field
 
+        } else if (display.innerText != '' && item.id == 'equal') {
+            //calculates the equation
+            display.innerText = eval(display.innerText);
 
-        //control what happens when a button is clicked
-        if(output.value == '0') {
-            output.value = e.target.value;
-        } else if (output.value.includes('.')) {
-            output.value = output.value + "" + e.target.value.replace('.', '');
-        } else if(is_operator) {
-            //restarts the value in the output from the new value
-            is_operator = false;
-            output.value = e.target.value;
+        } else if (display.innerText == '' && item.id == 'equal') {
+
+            display.innerText = 'Empty!';
+            setTimeout(() => (display.innerText = ''), 2000);
+
         } else {
-            output.value = output.value + '' + e.target.value;
+            display.innerText += item.id;
         }
     });
 });
 
-
-
+//themed color switch
+const themeTogglerBtn = document.querySelector('.theme-toggler');
+const calculator = document.querySelector('.calculator');
+const toggleBtn = document.querySelector('.toggler-icon');
+let isDark = true;
+themeTogglerBtn.addEventListener('click', () => {
+    calculator.classList.toggle('dark');
+    themeTogglerBtn.classList.toggle('active');
+    isDark = !isDark;
+});
